@@ -1,6 +1,7 @@
 package com.jsfcourse.jsf.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -12,76 +13,112 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class StudentDbUtil {
-	
+
 	private static StudentDbUtil instance;
 	private DataSource dataSource;
 	private String jndiName = "java:comp/env/jdbc/JSF_WebApp";
-	
+
 	public static StudentDbUtil getInstance() throws Exception {
 		if (instance == null) {
 			instance = new StudentDbUtil();
 		}
-		
+
 		return instance;
 	}
-	
-	private StudentDbUtil() throws Exception{
+
+	private StudentDbUtil() throws Exception {
 		dataSource = getDataSource();
 	}
-	
-	private DataSource getDataSource() throws NamingException{
+
+	private DataSource getDataSource() throws NamingException {
 		Context context = new InitialContext();
-		
+
 		DataSource theDataSource = (DataSource) context.lookup(jndiName);
-		
+
 		return theDataSource;
 	}
-	
+
 	public List<Student> getStudents() throws Exception {
-		
+
 		List<Student> students = new ArrayList<>();
-		
+
 		Connection myConn = null;
 		Statement myStmt = null;
 		ResultSet myRs = null;
-		
+
 		try {
 			myConn = dataSource.getConnection();
-			
+
 			String sql = "select * from student;";
-			
+
 			myStmt = myConn.createStatement();
-			
+
 			myRs = myStmt.executeQuery(sql);
-			
+
 			while (myRs.next()) {
 				Integer id = myRs.getInt("id");
 				String firstName = myRs.getString("first_name");
 				String lastName = myRs.getString("last_name");
 				String email = myRs.getString("email");
-				
+
 				Student tempStudent = new Student(id, firstName, lastName, email);
-				
+
 				students.add(tempStudent);
 			}
-			
+
 			return students;
-		}
-		finally {
-			close (myConn, myStmt, myRs);
+		} finally {
+			close(myConn, myStmt, myRs);
 		}
 
 	}
 
+	public void addStudent(Student student) {
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+
+		try {
+
+			myConn = dataSource.getConnection();
+			
+			String sql = "insert into student (first_name, last_name, email)"
+					+ "values"
+					+ "?"
+					+ "?"
+					+ "?";
+			
+			myStmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			myStmt.setString(1, student.getFirstName());
+			myStmt.setString(2, student.getLastName());
+			myStmt.setString(3, student.getEmail());
+			
+			int rowsAffected = myStmt.executeUpdate();	
+			
+			if(rowsAffected > 0) {
+				myRs = myStmt.getGeneratedKeys();
+				while (myRs.next()) {
+					int id = myRs.getInt(1);
+					System.out.println("Done! ID = " + id);
+				}
+			}else {
+				System.out.println("No rows affected");
+			}
+
+			
+		} catch (Exception e) {
+
+		}
+	}
+
 	private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
-		try{
+		try {
 			myConn.close();
 			myStmt.close();
 			myRs.close();
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
