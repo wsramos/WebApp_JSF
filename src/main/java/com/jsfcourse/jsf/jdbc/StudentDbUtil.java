@@ -61,7 +61,11 @@ public class StudentDbUtil {
 				String lastName = myRs.getString("last_name");
 				String email = myRs.getString("email");
 
-				Student tempStudent = new Student(id, firstName, lastName, email);
+				Student tempStudent = new Student();
+				tempStudent.setId(id);
+				tempStudent.setFirstName(firstName);
+				tempStudent.setLastName(lastName);
+				tempStudent.setEmail(email);
 
 				students.add(tempStudent);
 			}
@@ -74,24 +78,23 @@ public class StudentDbUtil {
 	}
 
 	public void addStudent(Student student) {
+		System.out.println("chegou");
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		ResultSet myRs = null;
 
 		try {
-
 			myConn = dataSource.getConnection();
 			
-			String sql = "insert into student (first_name, last_name, email)"
-					+ "values"
-					+ "?"
-					+ "?"
-					+ "?";
-			
-			myStmt = myConn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			myStmt.setString(1, student.getFirstName());
-			myStmt.setString(2, student.getLastName());
-			myStmt.setString(3, student.getEmail());
+			myStmt = myConn.prepareStatement("INSERT INTO student\r\n" + 
+							"(id, first_name, last_name, email)\r\n" + 
+							"VALUES\r\n" + 
+							"(?, ?, ?, ?)",
+							Statement.RETURN_GENERATED_KEYS);
+			myStmt.setString(1, null);
+			myStmt.setString(2, student.getFirstName());
+			myStmt.setString(3, student.getLastName());
+			myStmt.setString(4, student.getEmail());
 			
 			int rowsAffected = myStmt.executeUpdate();	
 			
@@ -107,7 +110,7 @@ public class StudentDbUtil {
 
 			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

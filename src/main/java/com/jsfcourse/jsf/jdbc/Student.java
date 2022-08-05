@@ -1,5 +1,8 @@
 package com.jsfcourse.jsf.jdbc;
 
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
 public class Student {
 	
 	private Integer id;
@@ -7,15 +10,9 @@ public class Student {
 	private String lastName;
 	private String email;
 	
+	
 	public Student() {
 		
-	}
-	
-	public Student(Integer id, String firstName, String lastName, String email) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
 	}
 
 	public Integer getId() {

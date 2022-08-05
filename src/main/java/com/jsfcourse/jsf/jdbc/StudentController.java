@@ -43,6 +43,11 @@ public class StudentController {
 			addErrorMessage(e);
 		}
 	}
+	
+	public String addStudent(Student student) {
+		studentDbUtil.addStudent(student);
+		return "databaseTest";
+	}
 
 	private void addErrorMessage(Exception e) {
 		FacesMessage message = new FacesMessage("Erros: " + e.getMessage());
