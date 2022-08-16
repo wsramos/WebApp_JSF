@@ -7,24 +7,32 @@
 	<f:event listener="#{studentController.loadStudents()}" type="preRenderView"></f:event>
 </f:metadata>
 
-<head>
+<h:head>
   <title><ui:insert name="title">Default title</ui:insert></title>
-</head>
+  <h:outputStylesheet library="css" name="style.css" />
+</h:head>
 
 <body>
-	<h3> Database Test</h3>
-	
-	<hr/>
-	
+	<header style="background: none repeat scroll 0 0 #0775d3; 
+				   color: #FFFFFF; 
+				   padding: 10px">
+		<h3> Database Test</h3>
+		
+		<hr/>
+	</header>
 	<br/>
 	
 		<h:dataTable 
 					value="#{studentController.students}" 
 					var="studentTemp" 
-					border="1">
+					styleClass="demo-table"
+					headerClass="demo-table-header"
+					rowClasses="demo-table-odd-row,demo-table-even-row"
+					style="text-align: left;
+						  border-bottom: 1px solid gray">
 			<h:column>
 				<!-- the column header -->
-				<f:facet name="header">First Name</f:facet>
+				<f:facet name="header" >First Name</f:facet>
 		
 				<!-- the value for each row -->
 				#{studentTemp.firstName}
@@ -46,6 +54,7 @@
 			
 			
 		</h:dataTable>
+		<br/>
 		<h:form><h:commandButton value="INSERIR" action="databasetest2"/></h:form>
 		<h:messages/>
 </body>

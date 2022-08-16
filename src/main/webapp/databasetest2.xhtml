@@ -14,31 +14,32 @@
 	<hr/>
 	
 	<br/>
-			<h:form target="_blank">
-			First Name: <h:inputText id="firstName" 
-									 value="#{student.firstName}" 
-									 label="First Name" 
-									 required="true"
-									 requiredMessage="Your First Name is mandatory."/>
-			<h:messages for="firstName" styleClass="error"/>
-			
-			Last Name: <h:inputText id="lastName" 
-									value="#{student.lastName}" 
-									label="Last Name" 
-									required="true"
-									requiredMessage="Your Last Name is mandatory."/>
-			<h:messages for="lastName" styleClass="error"/>
-			
-			E-mail: <h:inputText id="email" 
-								 value="#{student.email}" 
-								 label="Email" 
-								 required="true"
-								 requiredMessage="Your Email is mandatory.">
-								 </h:inputText>
-			<h:messages for="email" styleClass="error"/>
-			<h:commandButton value="Submit" action="#{studentController.addStudent(student)}"/>
-			
-		</h:form>
+			<h:form>
+				<h:panelGrid columns="3">
+					<h:outputLabel>First Name:</h:outputLabel> <h:inputText id="firstName" 
+											 value="#{student.firstName}" 
+											 label="First Name" 
+											 required="true"
+											 requiredMessage="Your First Name is mandatory."/>
+					<h:messages for="firstName" styleClass="error"/>
+					
+					<h:outputLabel>Last Name: </h:outputLabel><h:inputText id="lastName" 
+											value="#{student.lastName}" 
+											label="Last Name" 
+											required="true"
+											requiredMessage="Your Last Name is mandatory."/>
+					<h:messages for="lastName" styleClass="error"/>
+					
+					<h:outputLabel>E-mail: </h:outputLabel><h:inputText id="email" 
+										 value="#{student.email}" 
+										 label="Email" 
+										 required="true"
+										 requiredMessage="Your Email is mandatory.">
+										 </h:inputText>
+					<h:messages for="email" styleClass="error"/>
+					<h:commandButton value="Save" action="#{studentController.addStudent(student)}"/>
+				</h:panelGrid> 
+			</h:form>
 
 </body>
 

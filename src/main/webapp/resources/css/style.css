@@ -1,0 +1,36 @@
+html, body, header {
+	margin: 0 15px;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.demo-table {
+	border-collapse: collapse;
+	border-bottom: 1px solid gray;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;
+	width: 72%;
+	text-align: center !important;
+}
+
+.demo-table-header {
+	border-bottom: 1px solid gray;
+	background: none repeat scroll 0 0 #0775d3;
+	padding: 10px;
+	color: #FFFFFF;
+	text-align: center !important;
+}
+
+.demo-table-odd-row {
+	border-bottom: 1px solid gray;
+	background: none repeat scroll 0 0 #dbdad5;
+	padding: 10px;
+	color: #FFFFFF;
+}
+
+.demo-table-even-row {
+	border-bottom: 1px solid gray;
+	background: none repeat scroll 0 0 #FFFFFF;
+	background-color: #FFFFFF;
+	padding: 10px;
+	color: #FFFFFF;
+}

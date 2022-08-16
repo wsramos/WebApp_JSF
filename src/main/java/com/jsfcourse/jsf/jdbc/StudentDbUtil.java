@@ -78,7 +78,6 @@ public class StudentDbUtil {
 	}
 
 	public void addStudent(Student student) {
-		System.out.println("chegou");
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		ResultSet myRs = null;
